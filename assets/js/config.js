@@ -71,6 +71,6 @@ window.BLESSINGS_WALLET_CONFIG = {
      */
 
     supportEmail:
-        "YOUR_SUPPORT_EMAIL@example.com"
+        "softdev.sp@gmail.com"
 
 };
