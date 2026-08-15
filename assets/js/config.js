@@ -10,54 +10,18 @@ window.BLESSINGS_WALLET_CONFIG = {
 
     /**
      * --------------------------------------------------------
-     * APK DOWNLOAD
-     * --------------------------------------------------------
-     *
-     * The APK is stored directly inside:
-     *
-     * GitHub Repository:
-     * softdevsystems/blessingswallet
-     *
-     * Branch:
-     * main
-     *
-     * Folder:
-     * downloads
-     *
-     * File:
-     * Blessings-Wallet.apk
-     *
-     * The URL below is the direct/raw download URL.
-     */
-
-    apkUrl:
-        "https://raw.githubusercontent.com/softdevsystems/blessingswallet/main/downloads/Blessings-Wallet.apk",
-
-
-    /**
-     * APK filename
-     */
-    apkFileName:
-        "Blessings-Wallet.apk",
-
-
-
-    /**
-     * --------------------------------------------------------
      * GOOGLE PLAY
      * --------------------------------------------------------
      *
-     * Leave this blank while the application is not yet
-     * published on Google Play.
+     * Leave empty while Blessings Wallet
+     * is not yet available on Google Play.
      *
-     * Example after publishing:
+     * When published, replace with:
      *
-     * playStoreUrl:
-     * "https://play.google.com/store/apps/details?id=com.example.blessingswallet"
+     * https://play.google.com/store/apps/details?id=YOUR_PACKAGE
      */
 
-    playStoreUrl:
-        "",
+    playStoreUrl: "",
 
 
 
@@ -66,11 +30,9 @@ window.BLESSINGS_WALLET_CONFIG = {
      * SUPPORT EMAIL
      * --------------------------------------------------------
      *
-     * Replace this with your real support email before
-     * publishing the website.
+     * Replace this placeholder before publishing.
      */
 
-    supportEmail:
-        "softdev.sp@gmail.com"
+    supportEmail: "YOUR_SUPPORT_EMAIL@example.com"
 
 };
