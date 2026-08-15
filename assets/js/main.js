@@ -1,73 +1,283 @@
 (() => {
-  const cfg = window.BLESSINGS_WALLET_CONFIG || {};
 
-  const menuBtn = document.querySelector("[data-menu]");
-  const nav = document.querySelector("[data-nav]");
-  if (menuBtn && nav) {
-    menuBtn.addEventListener("click", () => {
-      const isOpen = nav.classList.toggle("open");
-      menuBtn.setAttribute("aria-expanded", String(isOpen));
-    });
-    nav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
-      nav.classList.remove("open");
-      menuBtn.setAttribute("aria-expanded", "false");
-    }));
-  }
+    "use strict";
 
-  function computeGitHubReleaseUrl() {
-    if (cfg.apkUrl) return cfg.apkUrl;
-    const host = location.hostname;
-    if (host.endsWith(".github.io")) {
-      const owner = host.split(".")[0];
-      const parts = location.pathname.split("/").filter(Boolean);
-      const repo = parts[0] || `${owner}.github.io`;
-      const file = cfg.apkFileName || "Blessings-Wallet.apk";
-      return `https://github.com/${owner}/${repo}/releases/latest/download/${encodeURIComponent(file)}`;
+
+    /**
+     * ========================================================
+     * CONFIGURATION
+     * ========================================================
+     */
+
+    const config =
+        window.BLESSINGS_WALLET_CONFIG || {};
+
+
+
+    /**
+     * ========================================================
+     * MOBILE NAVIGATION
+     * ========================================================
+     */
+
+    const menuButton =
+        document.querySelector("[data-menu]");
+
+    const navigation =
+        document.querySelector("[data-nav]");
+
+
+    if (menuButton && navigation) {
+
+        menuButton.addEventListener(
+            "click",
+            function () {
+
+                const isOpen =
+                    navigation.classList.toggle("open");
+
+
+                menuButton.setAttribute(
+                    "aria-expanded",
+                    String(isOpen)
+                );
+
+            }
+        );
+
+
+        /**
+         * Close menu after clicking
+         * a navigation link.
+         */
+        navigation
+            .querySelectorAll("a")
+            .forEach(function (link) {
+
+                link.addEventListener(
+                    "click",
+                    function () {
+
+                        navigation.classList.remove("open");
+
+                        menuButton.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+
+                    }
+                );
+
+            });
+
+
+        /**
+         * Close menu when clicking
+         * outside of the navigation.
+         */
+        document.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    !navigation.contains(event.target) &&
+                    !menuButton.contains(event.target)
+                ) {
+
+                    navigation.classList.remove("open");
+
+                    menuButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                }
+
+            }
+        );
+
     }
-    return "downloads/Blessings-Wallet.apk";
-  }
 
-  document.querySelectorAll("[data-apk-link]").forEach(el => {
-    el.href = computeGitHubReleaseUrl();
-  });
 
-  document.querySelectorAll("[data-play-link]").forEach(el => {
-    if (cfg.playStoreUrl) {
-      el.href = cfg.playStoreUrl;
-      el.removeAttribute("aria-disabled");
-      el.classList.remove("is-disabled");
-    } else {
-      el.href = "#";
-      el.setAttribute("aria-disabled", "true");
-      el.classList.add("is-disabled");
-      el.addEventListener("click", e => {
-        e.preventDefault();
-        showToast("Google Play listing coming soon.");
-      });
+
+    /**
+     * ========================================================
+     * GOOGLE PLAY BUTTON
+     * ========================================================
+     */
+
+    document
+        .querySelectorAll("[data-play-link]")
+        .forEach(function (button) {
+
+
+            /**
+             * Play Store URL exists.
+             */
+            if (config.playStoreUrl) {
+
+                button.href =
+                    config.playStoreUrl;
+
+                button.removeAttribute(
+                    "aria-disabled"
+                );
+
+                button.classList.remove(
+                    "is-disabled"
+                );
+
+            }
+
+
+            /**
+             * Play Store URL not available yet.
+             */
+            else {
+
+                button.href = "#";
+
+                button.setAttribute(
+                    "aria-disabled",
+                    "true"
+                );
+
+                button.classList.add(
+                    "is-disabled"
+                );
+
+
+                button.addEventListener(
+                    "click",
+                    function (event) {
+
+                        event.preventDefault();
+
+                        showToast(
+                            "Google Play listing coming soon."
+                        );
+
+                    }
+                );
+
+            }
+
+        });
+
+
+
+    /**
+     * ========================================================
+     * SUPPORT EMAIL
+     * ========================================================
+     */
+
+    document
+        .querySelectorAll("[data-support-email]")
+        .forEach(function (element) {
+
+
+            const email =
+                config.supportEmail ||
+                "YOUR_SUPPORT_EMAIL@example.com";
+
+
+            element.textContent =
+                email;
+
+
+            if (
+                element.tagName.toLowerCase() === "a"
+            ) {
+
+                element.href =
+                    "mailto:" + email;
+
+            }
+
+        });
+
+
+
+    /**
+     * ========================================================
+     * CURRENT YEAR
+     * ========================================================
+     */
+
+    document
+        .querySelectorAll("[data-year]")
+        .forEach(function (element) {
+
+            element.textContent =
+                new Date().getFullYear();
+
+        });
+
+
+
+    /**
+     * ========================================================
+     * TOAST
+     * ========================================================
+     */
+
+    function showToast(message) {
+
+        let toast =
+            document.querySelector(".toast");
+
+
+        /**
+         * Create toast if it doesn't exist.
+         */
+        if (!toast) {
+
+            toast =
+                document.createElement("div");
+
+            toast.className =
+                "toast";
+
+            toast.setAttribute(
+                "role",
+                "status"
+            );
+
+            document.body.appendChild(
+                toast
+            );
+
+        }
+
+
+        toast.textContent =
+            message;
+
+
+        toast.classList.add(
+            "show"
+        );
+
+
+        clearTimeout(
+            showToast.timer
+        );
+
+
+        showToast.timer =
+            setTimeout(
+                function () {
+
+                    toast.classList.remove(
+                        "show"
+                    );
+
+                },
+                2200
+            );
+
     }
-  });
 
-  document.querySelectorAll("[data-support-email]").forEach(el => {
-    const email = cfg.supportEmail || "YOUR_SUPPORT_EMAIL@example.com";
-    el.textContent = email;
-    if (el.tagName === "A") el.href = `mailto:${email}`;
-  });
 
-  document.querySelectorAll("[data-year]").forEach(el => {
-    el.textContent = new Date().getFullYear();
-  });
-
-  function showToast(message) {
-    let toast = document.querySelector(".toast");
-    if (!toast) {
-      toast = document.createElement("div");
-      toast.className = "toast";
-      toast.setAttribute("role", "status");
-      document.body.appendChild(toast);
-    }
-    toast.textContent = message;
-    toast.classList.add("show");
-    clearTimeout(showToast.timer);
-    showToast.timer = setTimeout(() => toast.classList.remove("show"), 2200);
-  }
 })();
