@@ -33,6 +33,6 @@ window.BLESSINGS_WALLET_CONFIG = {
      * Replace this placeholder before publishing.
      */
 
-    supportEmail: "YOUR_SUPPORT_EMAIL@example.com"
+    supportEmail: "softdev.sp@gmail.com"
 
 };
