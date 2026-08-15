@@ -1,8 +1,7 @@
 window.BLESSINGS_WALLET_CONFIG = {
   // Optional: paste a direct APK URL here.
   // Leave blank to auto-generate a GitHub Releases URL when hosted on GitHub Pages.
-  apkUrl: "",
-  apkFileName: "Blessings-Wallet.apk",
+  apkUrl: "https://raw.githubusercontent.com/softdevsystems/blessingswallet/main/downloads/Blessings-Wallet.apk"
 
   // Optional future Play Store listing.
   playStoreUrl: "",
